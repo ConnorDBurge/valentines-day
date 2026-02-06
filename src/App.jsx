@@ -74,9 +74,6 @@ function App() {
             Still No
           </button>
         </div>
-        <button onClick={handleRestart} className="btn btn-restart">
-          Start Over
-        </button>
       </div>
     )
   }
@@ -94,9 +91,6 @@ function App() {
             No
           </button>
         </div>
-        <button onClick={handleRestart} className="btn btn-restart">
-          Start Over
-        </button>
       </div>
     )
   }
@@ -120,6 +114,7 @@ function App() {
             className="celebration-gif"
           />
         </div>
+        <p className="celebration-message">I love you, Kyndall! ❤️</p>
         <button onClick={handleContinue} className="btn btn-continue">
           Continue ➡️
         </button>
