@@ -7,31 +7,48 @@ import './App.css'
 function App() {
   const [questionNumber, setQuestionNumber] = useState(1)
   const [answered, setAnswered] = useState(false)
-  const [showConfirm, setShowConfirm] = useState(false)
+  const [noCount, setNoCount] = useState(0)
+
+  const noMessages = [
+    "Are you sure about that? 🤔",
+    "Really? Are you absolutely sure? 😢",
+    "Think about it... Please? 🥺",
+    "Come on... You know you want to say yes! 💕",
+    "I don't believe you... Try again! 😏",
+    "Seriously? You're breaking my heart! 💔",
+    "One more chance... Pretty please? 🙏",
+    "You're not serious, right? 😭",
+    "I know you don't mean that! ❤️",
+    "Last chance... Are you REALLY sure? 🤨"
+  ]
 
   const handleYes = () => {
     setAnswered(true)
-    setShowConfirm(false)
+    setNoCount(0)
   }
 
   const handleNo = () => {
-    setShowConfirm(true)
+    setNoCount(prev => prev + 1)
   }
 
   const handleConfirmNo = () => {
-    setShowConfirm(false)
+    if (noCount < noMessages.length - 1) {
+      setNoCount(prev => prev + 1)
+    } else {
+      setNoCount(0)
+    }
   }
 
   const handleContinue = () => {
     setQuestionNumber(2)
     setAnswered(false)
-    setShowConfirm(false)
+    setNoCount(0)
   }
 
   const handleRestart = () => {
     setQuestionNumber(1)
     setAnswered(false)
-    setShowConfirm(false)
+    setNoCount(0)
   }
 
   // Question 2 answered
@@ -53,7 +70,6 @@ function App() {
             className="celebration-gif"
           />
         </div>
-        <p className="celebration-message">Let's gooooo! 😏</p>
         <button onClick={handleRestart} className="btn btn-restart">
           Start Over
         </button>
@@ -62,10 +78,10 @@ function App() {
   }
 
   // Question 2 confirm
-  if (questionNumber === 2 && showConfirm) {
+  if (questionNumber === 2 && noCount > 0) {
     return (
       <div className="container">
-        <h1 className="question">Are you sure about that? 🤔</h1>
+        <h1 className="question">{noMessages[Math.min(noCount, noMessages.length - 1)]}</h1>
         <div className="button-container">
           <button onClick={handleYes} className="btn btn-yes">
             Actually, YES! 😈
@@ -114,7 +130,6 @@ function App() {
             className="celebration-gif"
           />
         </div>
-        <p className="celebration-message">I love you, Kyndall! ❤️</p>
         <button onClick={handleContinue} className="btn btn-continue">
           Continue ➡️
         </button>
@@ -123,10 +138,10 @@ function App() {
   }
 
   // Question 1 confirm
-  if (showConfirm) {
+  if (noCount > 0) {
     return (
       <div className="container">
-        <h1 className="question">Are you sure about that? 🤔</h1>
+        <h1 className="question">{noMessages[Math.min(noCount, noMessages.length - 1)]}</h1>
         <div className="button-container">
           <button onClick={handleYes} className="btn btn-yes">
             Actually, YES! 💕
